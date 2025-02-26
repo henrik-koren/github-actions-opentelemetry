@@ -6,14 +6,14 @@
 [![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
 
 This action sends metrics and traces of GitHub Actions to an OpenTelemetry
-endpoint (OTLP). It helps you monitor and analyze GitHub Actions.
+Protocol (OTLP) endpoint. It helps you monitor and analyze GitHub Actions.
 
 ## Features Summary
 
 - 📊 Collects Metrics of GitHub Actions workflows and job execution times
 - 🔍 Collects Traces of GitHub Actions workflow, jobs, steps.
 - 📦 Sends data to any OTLP-compatible backend for monitoring and observability
-- 🚀 Easy integration with GitHub workflows
+- 🚀 Collect telemetry without modifying existing workflows
 
 ## Metrics
 
@@ -32,6 +32,17 @@ Each metric has associated attributes.
 ![Jaeger Example Screen Shot](./img/traces-jager.png)
 
 ![Attributes Sample](./img/trace-attributes.png)
+
+You can find a trace by the `run_id` attribute attached to the root span.
+`run_id` is visible in the workflow results URL. For example, if the URL is:
+
+```txt
+https://github.com/paper2/github-actions-opentelemetry/actions/runs/12246387114
+```
+
+Then the `run_id` is `12246387114`.
+
+![search-trace-run-id](./img/search-trace-run-id.png)
 
 ## How it works
 
@@ -167,8 +178,9 @@ command.
 npm run all
 ```
 
-This command creates index.js and more on dist. You must includes these
-artifacts on a commit.
+> [!NOTE]  
+> This command creates `index.js` and more on the `/dist` directory. You must
+> includes these artifacts on a commit because GitHub Actions uses these files.
 
 ### Recommend to install GitHub CLI (gh)
 
